@@ -13,6 +13,7 @@ main()
 			dir=UVa$file
 			
 			[ ! -d $dir ] && mkdir $dir
+			echo -e "mv $ofile $dir"
 			mv $ofile $dir
 		done
 
