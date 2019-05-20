@@ -9,10 +9,12 @@ DRY_RUN=0
 
 function usage()
 {
-	echo "usage: ./move_file_to_dir <option>"
-	echo "    -d, --dry-run        Do not really move the files, only shows what actions will be done."
-	echo "    -h, --help           Show this message. "
-	echo "default action will move all the files to their corresponding directory"
+	echo "usage: ./move_file_to_dir [option] [problem ID]"
+	echo "    -i, --ID <problem ID>        Only move the specified file."
+	echo "    -v, --invert <problem ID>    Only the specified file will not be moved."
+	echo "    -d, --dry-run                Do not really move the files, only shows what actions will be done."
+	echo "    -h, --help                   Show this message. "
+	echo "Default action is to move all the files to their corresponding directory"
 }
 
 function move_file_to_dir()
@@ -29,8 +31,9 @@ function move_file_to_dir()
 			dir=UVa$ID
 			
 			[ ! -d $dir ] && mkdir $dir
+			
 			echo -e "mv $origin_file $dir"
-			if [ "DRY_RUN" = "1" ]; then
+			if [ "DRY_RUN" != "1" ]; then
 				mv $origin_file $dir
 			fi
 		done
@@ -41,7 +44,6 @@ function main()
 	until [ -z "$1" ]
 	do
 		case "$1" in
-
 			-h | --help)
 				usage
 				exit 0;;
