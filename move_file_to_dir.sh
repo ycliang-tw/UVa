@@ -20,7 +20,14 @@ function usage()
 function move_file_to_dir()
 {
 	
-	files=`ls | grep cpp`
+	files=`ls | xargs -n 1 | grep cpp`
+	
+	if [ "$ONLY_MV" = "1" ]; then
+		files=`ls | grep cpp | grep $ID`
+	elif [ "$ONLY_NOT_MV" = "1" ]; then
+		files=`ls | grep cpp | grep -v $ID`
+	fi
+
 	for file in $files
 		do 
 			origin_file=$file
@@ -30,10 +37,10 @@ function move_file_to_dir()
 			ID=${tmp:0:(($len-2))}
 			dir=UVa$ID
 			
-			[ ! -d $dir ] && mkdir $dir
-			
 			echo -e "mv $origin_file $dir"
-			if [ "DRY_RUN" != "1" ]; then
+			if [ "$DRY_RUN" != "1" ]; then
+				echo -e "mkdir $dir"
+				[ ! -d $dir ] && mkdir $dir
 				mv $origin_file $dir
 			fi
 		done
@@ -50,8 +57,19 @@ function main()
 
 			-d | --dry-run)
 				DRY_RUN=1
+				shift 1;;
+
+			-i | --ID)
+				shift 1
+				ID=$1
+				ONLY_MV=1
 				break;;
 
+			-v | --invert)
+				shift 1
+				ID=$1
+				ONLY_NOT_MV=1
+				break;;
 			*)
 				usage
 				exit 1;;
