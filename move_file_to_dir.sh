@@ -20,12 +20,12 @@ function usage()
 function move_file_to_dir()
 {
 	
-	files=`ls | xargs -n 1 | grep cpp`
+	files=`ls | xargs -n 1 | grep -e cpp -e c`
 	
 	if [ "$ONLY_MV" = "1" ]; then
-		files=`ls | grep cpp | grep $ID`
+		files=`ls | grep -e cpp -e c | grep $ID`
 	elif [ "$ONLY_NOT_MV" = "1" ]; then
-		files=`ls | grep cpp | grep -v $ID`
+		files=`ls | grep -e cpp -e c | grep -v $ID`
 	fi
 
 	for file in $files
@@ -39,8 +39,7 @@ function move_file_to_dir()
 			
 			echo -e "mv $origin_file $dir"
 			if [ "$DRY_RUN" != "1" ]; then
-				echo -e "mkdir $dir"
-				[ ! -d $dir ] && mkdir $dir
+				[ ! -d $dir ] && mkdir $dir && echo -e "mkdir $dir"
 				mv $origin_file $dir
 			fi
 		done
