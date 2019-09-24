@@ -47,6 +47,9 @@ using namespace std;
  *      ----------------------------------- ,  so when we have a mismatch at 'c'(idx == 6), meaning that we still are matching until 'b'(idx == 5),
  *      | pi  | 0 | 0 | 1 | 2 | 3 | 4 | 0 | ,  the next character we want to compared with is the character next to the previous 'b' (idx == 3),
  *      ----------------------------------- ,  hence we move our index "q = pi[q- 1]" (q = pi[6-1])
+ *
+ * 
+ *
  */
 
 void KMP_matcher(string text, string pattern, vector<int>&prefix) 

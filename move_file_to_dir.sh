@@ -33,8 +33,9 @@ function move_file_to_dir()
 			origin_file=$file
 			
 			tmp=`echo $file | cut -d"." -f1`
-			len=${#tmp}
-			ID=${tmp:0:(($len-2))}
+			ID=$((tmp/100))
+#			len=${#tmp}
+#			ID=${tmp:0:(($len-2))}
 			dir=UVa$ID
 			
 			echo -e "mv $origin_file $dir"
@@ -62,13 +63,13 @@ function main()
 				shift 1
 				ID=$1
 				ONLY_MV=1
-				break;;
+                shift 1;;
 
 			-v | --invert)
 				shift 1
 				ID=$1
 				ONLY_NOT_MV=1
-				break;;
+				shift 1;;
 			*)
 				usage
 				exit 1;;
