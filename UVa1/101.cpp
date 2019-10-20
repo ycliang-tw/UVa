@@ -76,8 +76,8 @@ int main()
 		if(a == b || pa == pb)
 			continue;
 		
-		if(s2 == "onto")	clear_above(pa, ha);
-		if(s1 == "move")	clear_above(pb, hb);
+		if(s2 == "onto")	clear_above(pb, hb);
+		if(s1 == "move")	clear_above(pa, ha);
 		pile_onto(pa, ha, pb);
 	}
 

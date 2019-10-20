@@ -34,8 +34,6 @@ function move_file_to_dir()
 			
 			tmp=`echo $file | cut -d"." -f1`
 			ID=$((tmp/100))
-#			len=${#tmp}
-#			ID=${tmp:0:(($len-2))}
 			dir=UVa$ID
 			
 			echo -e "mv $origin_file $dir"
