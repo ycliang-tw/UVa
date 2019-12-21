@@ -37,9 +37,11 @@ function move_file_to_dir()
 			dir=UVa$ID
 			
 			echo -e "mv $origin_file $dir"
-			if [ "$DRY_RUN" != "1" ]; then
+			if [ "$DRY_RUN" -ne 1 ]; then
 				[ ! -d $dir ] && mkdir $dir && echo -e "mkdir $dir"
 				mv $origin_file $dir
+			else
+				echo "dry run!"
 			fi
 		done
 }
